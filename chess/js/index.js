@@ -21,6 +21,7 @@ class ImgManager {
         'IC-Q': 'img/IC-Q.png',
         'IC-R': 'img/IC-R.png',
         'IC-S': 'img/IC-S.png',
+        'background': 'img/background.png',
     };
 
     constructor() { }
