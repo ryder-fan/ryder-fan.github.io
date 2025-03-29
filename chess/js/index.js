@@ -38,9 +38,10 @@ class ImgManager {
 
     /**
      * 加载所有图片
+     * @param {function} whenFinish 加载完成回调函数
      * @returns {Promise<void>} 加载所有图片
      */
-    static async loadImgs() {
+    static async loadImgs(whenFinish) {
         let startTick = Date.now();
         console.log('Start load imgs...');
 
@@ -71,9 +72,33 @@ class ImgManager {
         loader_container.parentNode && loader_container.parentNode.removeChild(loader_container);
 
         console.log('Load imgs done, time: ' + (Date.now() - startTick) + 'ms');
+        whenFinish && whenFinish();
     }
 }
 
+var size;
 document.addEventListener('DOMContentLoaded', function () {
-    ImgManager.loadImgs();
+    ImgManager.loadImgs(setup);
 });
+
+function setup() {
+    setupBoard();
+    setSize();
+}
+
+function setSize() {
+    size = Math.min(window.innerWidth, window.innerHeight);
+    const board = document.getElementById("board");
+    board.style.width = `${size * 0.9}px`;
+    board.style.height = `${size * 0.9}px`;
+}
+
+function setupBoard() {
+    const board_container = document.getElementById("board-container");
+    const board = document.getElementById("board");
+    const board_img = document.getElementById("board-img");
+
+    board_img.src = ImgManager.getImg('background');
+}
+
+window.addEventListener('resize', setSize);
