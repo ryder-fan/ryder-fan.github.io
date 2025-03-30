@@ -23,6 +23,7 @@ p {
 }
 
 #loader-container {
+	background-color: black;
 	text-align: center;
 	left: 0%;
 	top: 0%;
@@ -66,6 +67,20 @@ p {
 
 #board-img {
 	position: relative;
+	left: 0;
+	top: 0;
+	width: 100%;
+	height: 100%;
+}
+
+#board-container .chess {
+	position: absolute;
+	width: 12.5%;
+	height: 12.5%;
+}
+
+#board-container .chess img {
+	position: absolute;
 	left: 0;
 	top: 0;
 	width: 100%;
