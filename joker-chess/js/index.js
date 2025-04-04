@@ -475,10 +475,13 @@ class GameManager {
      * @function setupBoard 棋盘初始化
      */
     static setupBoard() {
+        this.#board_node.addEventListener('click', this.boardClicked.bind(this));
         this.#board_img_node.src = ImgManager.getImg('background');
-        this.player_turn = 'CC';
+
         for (const id in this.chessMap)
             this.ChessManagers[id] = new ChessManager(id);
+
+        this.player_turn = 'CC';
         this.#player_turn_node.textContent = `${this.player_color[this.player_turn]}`;
     }
 
@@ -487,6 +490,24 @@ class GameManager {
             if (this.ChessManagers[id].status == 'chosen')
                 this.ChessManagers[id].unChoose();
         }
+        this.movingChess = undefined;
+    }
+
+    static getChessByPos(x, y) {
+        for (const id in this.chessMap) {
+            const chessManager = this.ChessManagers[id];
+            if (chessManager.posx == x && chessManager.posy == y)
+                return chessManager;
+        }
+        return undefined;
+    }
+
+    static boardClicked(event) {
+        if (!this.movingChess) return;
+        const x = Math.floor(event.offsetX / (this.size * 0.8 / 8));
+        const y = Math.floor(event.offsetY / (this.size * 0.8 / 8));
+        if ([1, 2, 3, 4, 5, 6, 7, 8].includes(x) && [1, 2, 3, 4, 5, 6, 7, 8].includes(y))
+            this.movingChess.moveTo(x, y);
     }
 }
 
@@ -598,6 +619,11 @@ class ChessManager {
         } else if (this.status == 'chosen') {
             this.unChoose();
         }
+    }
+
+    moveTo(x, y) {
+        if (this.status != 'chosen') return GameManager.unChooseAll();
+        if (![1, 2, 3, 4, 5, 6, 7, 8].includes(x) || ![1, 2, 3, 4, 5, 6, 7, 8].includes(y)) return;
     }
 }
 
