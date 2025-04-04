@@ -517,6 +517,14 @@ class ChessManager {
      * 'eaten' 被吃掉
      */
     status = '';
+    /**
+     * 棋子位置x
+     */
+    posx;
+    /**
+     * 棋子位置y
+     */
+    posy;
 
     /**
      * 
@@ -576,6 +584,8 @@ class ChessManager {
      */
     setPos(x, y) {
         if ([1, 2, 3, 4, 5, 6, 7, 8].includes(x) && [1, 2, 3, 4, 5, 6, 7, 8].includes(y)) {
+            this.posx = x;
+            this.posy = y;
             this.#chess_node.style.left = `${(x - 1) * 12.5}%`;
             this.#chess_node.style.top = `${(y - 1) * 12.5}%`;
         } else console.warn(`Invalid position: (${x}, ${y}), Chess: ${this.id}`);
