@@ -1,1 +1,0 @@
-# ryder-fan.github.io
