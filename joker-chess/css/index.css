@@ -4,7 +4,7 @@ body {
 }
 
 h1 {
-	font-size: 5em;
+	font-size: 3em;
 	color: white;
 	text-align: center;
 }
@@ -16,6 +16,18 @@ p {
 
 .fixed {
 	position: fixed;
+}
+
+.horizontal .flex {
+	display: flex;
+	flex-direction: row;
+	align-items: center;
+}
+
+.vertical .flex {
+	display: flex;
+	flex-direction: column;
+	align-items: center;
 }
 
 .top {
@@ -52,11 +64,16 @@ p {
 	}
 }
 
-#board-container {
+#game-container {
+	position: absolute;
 	left: 10%;
-	top: 5%;
-	height: 60%;
-	width: 90%;
+	top: 10%;
+	width: 80%;
+	height: 80%;
+}
+
+#board-container {
+	position: relative;
 }
 
 #board {
@@ -79,10 +96,19 @@ p {
 	height: 12.5%;
 }
 
+#board-container .chess.chosen {
+	background-color: rgba(52, 152, 219, 0.8);
+}
+
 #board-container .chess img {
 	position: absolute;
 	left: 0;
 	top: 0;
 	width: 100%;
 	height: 100%;
+}
+
+#info-container {
+	position: relative;
+	margin: 2em;
 }

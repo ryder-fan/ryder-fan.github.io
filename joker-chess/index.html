@@ -2,8 +2,12 @@
 <html lang="zh-CN">
 
 <head>
+	<title>Joker Chess</title>
 	<link rel="stylesheet" type="text/css" href="css/index.css" />
-	<script src="js/index.js"></script>
+	<link rel="stylesheet" type="text/css" href="css/sweetalert2.min.css" />
+	<script src="../js/global.min.js"></script>
+	<script src="js/sweetalert2.min.js"></script>
+	<script src="js/index.min.js"></script>
 </head>
 
 <body>
@@ -16,9 +20,19 @@
 		<img id="loadingimg" width="1px" height="1px">
 	</div>
 
-	<div id="board-container" class="fixed">
-		<div id="board">
-			<img id="board-img" style="z-index: -1;" alt="Chessboard" />
+	<div id="game-container" class="flex">
+		<div id="board-container" >
+			<div id="board">
+				<img id="board-img" style="z-index: -1;" alt="Chessboard" />
+			</div>
+		</div>
+		<div id="info-container">
+			<div id="info" style="display: flex; flex-direction: column; align-items: center;">
+				<h1>Joker Chess</h1>
+				<p>走棋方：
+					<span id="player-turn"></span>
+				</p>
+			</div>
 		</div>
 	</div>
 </body>
