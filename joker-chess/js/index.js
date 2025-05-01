@@ -524,6 +524,7 @@ class GameManager {
         else this.player_turn = 'CC';
         this.#player_turn_node.textContent = `${this.player_color[this.player_turn]}`;
         Dialog.success('走棋成功', `现在为${this.player_color[this.player_turn]}走棋`);
+        this.unChooseAll();
     }
 }
 
@@ -698,7 +699,7 @@ class MoveManager {
             moves.push([posx - 1, posy]);
         if (posy <= 4 && this.canEat(posx + 1, posy, color))
             moves.push([posx + 1, posy]);
-        
+
         return moves;
     }
 }
