@@ -126,7 +126,7 @@ class ImgManager {
                 solve();
             };
             loadingimg.onerror = function () {
-                console.warn('error load img: ' + id);
+                console.warn('error load img: ' + name);
                 index++;
                 loadingtext.textContent = 'Loading (' + index + '/' + allImgNum + ') ...';
                 solve();
@@ -180,112 +180,112 @@ class GameManager {
         'CC-B1': {
             x: 2,
             y: 7,
-            type: 'B',
+            type: 'CC-B',
             color: 'CC',
             img: ImgManager.getImg('CC-B'),
         },
         'CC-B2': {
             x: 3,
             y: 7,
-            type: 'B',
+            type: 'CC-B',
             color: 'CC',
             img: ImgManager.getImg('CC-B'),
         },
         'CC-B3': {
             x: 4,
             y: 7,
-            type: 'B',
+            type: 'CC-B',
             color: 'CC',
             img: ImgManager.getImg('CC-B'),
         },
         'CC-B4': {
             x: 6,
             y: 7,
-            type: 'B',
+            type: 'CC-B',
             color: 'CC',
             img: ImgManager.getImg('CC-B'),
         },
         'CC-B5': {
             x: 7,
             y: 7,
-            type: 'B',
+            type: 'CC-B',
             color: 'CC',
             img: ImgManager.getImg('CC-B'),
         },
         'CC-C1': {
             x: 1,
             y: 7,
-            type: 'CC',
+            type: 'CC-C',
             color: 'CC',
             img: ImgManager.getImg('CC-C'),
         },
         'CC-C2': {
             x: 8,
             y: 7,
-            type: 'CC',
+            type: 'CC-C',
             color: 'CC',
             img: ImgManager.getImg('CC-C'),
         },
         'CC-M1': {
             x: 2,
             y: 8,
-            type: 'M',
+            type: 'CC-M',
             color: 'CC',
             img: ImgManager.getImg('CC-M'),
         },
         'CC-M2': {
             x: 7,
             y: 8,
-            type: 'M',
+            type: 'CC-M',
             color: 'CC',
             img: ImgManager.getImg('CC-M'),
         },
         'CC-P1': {
             x: 1,
             y: 8,
-            type: 'P',
+            type: 'CC-P',
             color: 'CC',
             img: ImgManager.getImg('CC-P'),
         },
         'CC-P2': {
             x: 8,
             y: 8,
-            type: 'P',
+            type: 'CC-P',
             color: 'CC',
             img: ImgManager.getImg('CC-P'),
         },
         'CC-S1': {
             x: 5,
             y: 7,
-            type: 'S',
+            type: 'CC-S',
             color: 'CC',
             img: ImgManager.getImg('CC-S'),
         },
         'CC-S2': {
             x: 5,
             y: 8,
-            type: 'S',
+            type: 'CC-S',
             color: 'CC',
             img: ImgManager.getImg('CC-S'),
         },
         'CC-W': {
             x: 4,
             y: 8,
-            type: 'W',
+            type: 'CC-W',
             color: 'CC',
             img: ImgManager.getImg('CC-W'),
         },
         'CC-X1': {
             x: 3,
             y: 8,
-            type: 'X',
+            type: 'CC-X',
             color: 'CC',
             img: ImgManager.getImg('CC-X'),
         },
         'CC-X2': {
             x: 6,
             y: 8,
-            type: 'X',
+            type: 'CC-X',
             color: 'CC',
             img: ImgManager.getImg('CC-X'),
         },
@@ -293,112 +293,112 @@ class GameManager {
         'IC-B1': {
             x: 3,
             y: 1,
-            type: 'B',
+            type: 'IC-B',
             color: 'IC',
             img: ImgManager.getImg('IC-B'),
         },
         'IC-B2': {
             x: 6,
             y: 1,
-            type: 'B',
+            type: 'IC-B',
             color: 'IC',
             img: ImgManager.getImg('IC-B'),
         },
         'IC-K': {
             x: 4,
             y: 1,
-            type: 'K',
+            type: 'IC-K',
             color: 'IC',
             img: ImgManager.getImg('IC-K'),
         },
         'IC-N1': {
             x: 2,
             y: 1,
-            type: 'N',
+            type: 'IC-N',
             color: 'IC',
             img: ImgManager.getImg('IC-N'),
         },
         'IC-N2': {
             x: 7,
             y: 1,
-            type: 'N',
+            type: 'IC-N',
             color: 'IC',
             img: ImgManager.getImg('IC-N'),
         },
         'IC-Q': {
             x: 5,
             y: 1,
-            type: 'Q',
+            type: 'IC-Q',
             color: 'IC',
             img: ImgManager.getImg('IC-Q'),
         },
         'IC-R1': {
             x: 1,
             y: 1,
-            type: 'R',
+            type: 'IC-R',
             color: 'IC',
             img: ImgManager.getImg('IC-R'),
         },
         'IC-R2': {
             x: 8,
             y: 1,
-            type: 'R',
+            type: 'IC-R',
             color: 'IC',
             img: ImgManager.getImg('IC-R'),
         },
         'IC-S1': {
             x: 1,
             y: 2,
-            type: 'S',
+            type: 'IC-S',
             color: 'IC',
             img: ImgManager.getImg('IC-S'),
         },
         'IC-S2': {
             x: 2,
             y: 2,
-            type: 'S',
+            type: 'IC-S',
             color: 'IC',
             img: ImgManager.getImg('IC-S'),
         },
         'IC-S3': {
             x: 3,
             y: 2,
-            type: 'S',
+            type: 'IC-S',
             color: 'IC',
             img: ImgManager.getImg('IC-S'),
         },
         'IC-S4': {
             x: 4,
             y: 2,
-            type: 'S',
+            type: 'IC-S',
             color: 'IC',
             img: ImgManager.getImg('IC-S'),
         },
         'IC-S5': {
             x: 5,
             y: 2,
-            type: 'S',
+            type: 'IC-S',
             color: 'IC',
             img: ImgManager.getImg('IC-S'),
         },
         'IC-S6': {
             x: 6,
             y: 2,
-            type: 'S',
+            type: 'IC-S',
             color: 'IC',
             img: ImgManager.getImg('IC-S'),
         },
         'IC-S7': {
             x: 7,
             y: 2,
-            type: 'S',
+            type: 'IC-S',
             color: 'IC',
             img: ImgManager.getImg('IC-S'),
         },
         'IC-S8': {
             x: 8,
             y: 2,
-            type: 'S',
+            type: 'IC-S',
             color: 'IC',
             img: ImgManager.getImg('IC-S'),
         },
@@ -503,11 +503,27 @@ class GameManager {
     }
 
     static boardClicked(event) {
-        if (!this.movingChess) return;
-        const x = Math.floor(event.offsetX / (this.size * 0.8 / 8));
-        const y = Math.floor(event.offsetY / (this.size * 0.8 / 8));
-        if ([1, 2, 3, 4, 5, 6, 7, 8].includes(x) && [1, 2, 3, 4, 5, 6, 7, 8].includes(y))
-            this.movingChess.moveTo(x, y);
+        const x = Math.floor(event.offsetX / (this.size * 0.8 / 8)) + 1;
+        const y = Math.floor(event.offsetY / (this.size * 0.8 / 8)) + 1;
+        const chess = this.getChessByPos(x, y);
+
+        if (!chess) {
+            if (this.movingChess) this.movingChess.moveTo(x, y);
+            else return;
+        } else if (chess.status == '') {
+            if (chess.id.startsWith(this.player_turn)) {
+                this.unChooseAll();
+                chess.choose();
+            } else if (this.movingChess) this.movingChess.moveTo(x, y);
+            else Dialog.error('不是你的回合', `现在为${this.player_color[this.player_turn]}走棋`);
+        } else if (chess.status == 'chosen') this.unChooseAll();
+    }
+
+    static nextRound() {
+        if (this.player_turn == 'CC') this.player_turn = 'IC';
+        else this.player_turn = 'CC';
+        this.#player_turn_node.textContent = `${this.player_color[this.player_turn]}`;
+        Dialog.success('走棋成功', `现在为${this.player_color[this.player_turn]}走棋`);
     }
 }
 
@@ -532,6 +548,10 @@ class ChessManager {
      */
     id;
     /**
+     * @readonly #type 棋子种类
+     */
+    type;
+    /**
      * 棋子状态
      * '' 正常
      * 'chosen' 选中
@@ -554,6 +574,7 @@ class ChessManager {
     constructor(id) {
         this.#board_node = document.getElementById("board");
         this.id = id;
+        this.type = this.chessMap[id].type;
         this.createChess(id);
     }
 
@@ -570,13 +591,9 @@ class ChessManager {
      * @function choose 选中棋子
      */
     choose() {
-        if (this.id.startsWith(GameManager.player_turn)) {
-            GameManager.movingChess = this;
-            this.status = 'chosen';
-            this.#chess_node.classList.add('chosen');
-        } else {
-            Dialog.error('不是你的回合', `现在为${GameManager.player_color[GameManager.player_turn]}走棋`);
-        }
+        GameManager.movingChess = this;
+        this.status = 'chosen';
+        this.#chess_node.classList.add('chosen');
     }
 
     /**
@@ -586,7 +603,6 @@ class ChessManager {
         this.#chess_node = document.createElement('div');
         this.#chess_node.id = this.id;
         this.#chess_node.classList.add('chess');
-        this.#chess_node.addEventListener('click', this.onClicked.bind(this));
 
         const chessImg = document.createElement('img');
         chessImg.id = this.id + '-img';
@@ -600,8 +616,8 @@ class ChessManager {
 
     /**
      * @function setPos 设置棋子位置
-     * @param {1|2|3|4|5|6|7|8} x x坐标
-     * @param {1|2|3|4|5|6|7|8} y y坐标
+     * @param {-1|1|2|3|4|5|6|7|8} x x坐标
+     * @param {-1|1|2|3|4|5|6|7|8} y y坐标
      */
     setPos(x, y) {
         if ([1, 2, 3, 4, 5, 6, 7, 8].includes(x) && [1, 2, 3, 4, 5, 6, 7, 8].includes(y)) {
@@ -609,21 +625,81 @@ class ChessManager {
             this.posy = y;
             this.#chess_node.style.left = `${(x - 1) * 12.5}%`;
             this.#chess_node.style.top = `${(y - 1) * 12.5}%`;
+        } else if (x == -1 && y == -1) {
+            this.posx = -1;
+            this.posy = -1;
+            this.#chess_node.parentNode && this.#chess_node.parentNode.removeChild(this.#chess_node);
         } else console.warn(`Invalid position: (${x}, ${y}), Chess: ${this.id}`);
     }
 
-    onClicked() {
-        if (this.status == '') {
-            GameManager.unChooseAll();
-            this.choose();
-        } else if (this.status == 'chosen') {
-            this.unChoose();
+    canMoveTo(x, y) {
+        if (![1, 2, 3, 4, 5, 6, 7, 8].includes(x) || ![1, 2, 3, 4, 5, 6, 7, 8].includes(y)) return false;
+        let canMovePosList = MoveManager.canMovePosList(this);
+        console.log(canMovePosList);
+        for (let pos of canMovePosList) {
+            if (pos[0] == x && pos[1] == y) return true;
         }
+        return false;
     }
 
     moveTo(x, y) {
         if (this.status != 'chosen') return GameManager.unChooseAll();
         if (![1, 2, 3, 4, 5, 6, 7, 8].includes(x) || ![1, 2, 3, 4, 5, 6, 7, 8].includes(y)) return;
+        if (!this.canMoveTo(x, y))
+            return Dialog.warning('移动失败', `${this.id}不能从(${this.posx}, ${this.posy})移动到(${x}, ${y})`);
+        else {
+            if (GameManager.getChessByPos(x, y)) {
+                const eatenChess = GameManager.getChessByPos(x, y);
+                eatenChess.status = 'eaten';
+                eatenChess.setPos(-1, -1);
+            }
+            this.setPos(x, y);
+            GameManager.nextRound();
+        }
+    }
+}
+
+/**
+ * @class MoveManager 移动管理器
+ */
+class MoveManager {
+    static hasChess(posx, posy) {
+        if (GameManager.getChessByPos(posx, posy)) return true;
+        else return false;
+    }
+
+    static canEat(posx, posy, color) {
+        if (!this.hasChess(posx, posy)) return true;
+        const chess = GameManager.getChessByPos(posx, posy);
+        console.log(chess.id.slice(0, 2), color);
+        if (chess.id.slice(0, 2) == color) return false;
+        else return true;
+    }
+
+    static canMovePosList(chess) {
+        const posx = chess.posx;
+        const posy = chess.posy;
+        const color = chess.id.slice(0, 2);
+
+        switch (chess.type) {
+            case 'CC-B':
+                return this.moveCCB(posx, posy, color);
+        }
+
+        return [];
+    }
+
+    static moveCCB(posx, posy, color) {
+        let moves = [];
+
+        if (this.canEat(posx, posy - 1, color))
+            moves.push([posx, posy - 1]);
+        if (posy <= 4 && this.canEat(posx - 1, posy, color))
+            moves.push([posx - 1, posy]);
+        if (posy <= 4 && this.canEat(posx + 1, posy, color))
+            moves.push([posx + 1, posy]);
+        
+        return moves;
     }
 }
 
