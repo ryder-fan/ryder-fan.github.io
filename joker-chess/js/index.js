@@ -523,7 +523,7 @@ class GameManager {
         if (this.player_turn == 'CC') this.player_turn = 'IC';
         else this.player_turn = 'CC';
         this.#player_turn_node.textContent = `${this.player_color[this.player_turn]}`;
-        Dialog.success('走棋成功', `现在为${this.player_color[this.player_turn]}走棋`);
+        // Dialog.success('走棋成功', `现在为${this.player_color[this.player_turn]}走棋`);
         this.unChooseAll();
     }
 }
@@ -679,6 +679,8 @@ class MoveManager {
         const posx = chess.posx;
         const posy = chess.posy;
         const color = chess.id.slice(0, 2);
+
+        if (color == 'CC' && (posx == 1 || posx == 8) && posy == 6) return [];
 
         switch (chess.type) {
             case 'CC-B':
