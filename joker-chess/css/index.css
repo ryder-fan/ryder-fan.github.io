@@ -94,6 +94,7 @@ p {
 	position: absolute;
 	width: 12.5%;
 	height: 12.5%;
+	pointer-events: none;
 }
 
 #board-container .chess.chosen {
