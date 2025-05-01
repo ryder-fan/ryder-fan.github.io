@@ -636,7 +636,6 @@ class ChessManager {
     canMoveTo(x, y) {
         if (![1, 2, 3, 4, 5, 6, 7, 8].includes(x) || ![1, 2, 3, 4, 5, 6, 7, 8].includes(y)) return false;
         let canMovePosList = MoveManager.canMovePosList(this);
-        console.log(canMovePosList);
         for (let pos of canMovePosList) {
             if (pos[0] == x && pos[1] == y) return true;
         }
@@ -664,15 +663,14 @@ class ChessManager {
  * @class MoveManager 移动管理器
  */
 class MoveManager {
-    static hasChess(posx, posy) {
-        if (GameManager.getChessByPos(posx, posy)) return true;
-        else return false;
+    static isEmpty(posx, posy) {
+        if (GameManager.getChessByPos(posx, posy)) return false;
+        else return true;
     }
 
     static canEat(posx, posy, color) {
-        if (!this.hasChess(posx, posy)) return true;
+        if (this.isEmpty(posx, posy)) return true;
         const chess = GameManager.getChessByPos(posx, posy);
-        console.log(chess.id.slice(0, 2), color);
         if (chess.id.slice(0, 2) == color) return false;
         else return true;
     }
@@ -685,6 +683,8 @@ class MoveManager {
         switch (chess.type) {
             case 'CC-B':
                 return this.moveCCB(posx, posy, color);
+            case 'IC-S':
+                return this.moveICS(posx, posy, color);
         }
 
         return [];
@@ -699,6 +699,21 @@ class MoveManager {
             moves.push([posx - 1, posy]);
         if (posy <= 4 && this.canEat(posx + 1, posy, color))
             moves.push([posx + 1, posy]);
+
+        return moves;
+    }
+
+    static moveICS(posx, posy, color) {
+        let moves = [];
+
+        if (this.isEmpty(posx, posy + 1))
+            moves.push([posx, posy + 1]);
+        if (!this.isEmpty(posx - 1, posy + 1) && this.canEat(posx - 1, posy + 1, color))
+            moves.push([posx - 1, posy + 1]);
+        if (!this.isEmpty(posx + 1, posy + 1) && this.canEat(posx + 1, posy + 1, color))
+            moves.push([posx + 1, posy + 1]);
+        if (posy == 2 && this.isEmpty(posx, posy + 1) && this.isEmpty(posx, posy + 2))
+            moves.push([posx, posy + 2]);
 
         return moves;
     }
