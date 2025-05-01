@@ -86,6 +86,9 @@ class ImgManager {
         'IC-Q': 'img/IC-Q.png',
         'IC-R': 'img/IC-R.png',
         'IC-S': 'img/IC-S.png',
+        'chosen-r': 'img/chosen-r.png',
+        'chosen-b': 'img/chosen-b.png',
+        'chosen-y': 'img/chosen-y.png',
         'background': 'img/background.png',
     };
 
@@ -157,6 +160,18 @@ class GameManager {
      * @static #board_img 棋盘图片节点
      */
     static #board_img_node;
+    /**
+     * @static #board_img_moveFrom 移动来源的棋盘图片节点
+     */
+    static #board_img_moveFrom;
+    /**
+     * @static #board_img_moveTo 移动到位置的棋盘图片节点
+     */
+    static #board_img_moveTo;
+    /**
+     * @static #board_img_chosen 选中的棋盘图片节点
+     */
+    static #board_img_chosen;
     /**
      * @static #player_turn_node 当前走棋方显示节点
      */
@@ -452,6 +467,9 @@ class GameManager {
     static setup() {
         this.#board_node = document.getElementById("board");
         this.#board_img_node = document.getElementById("board-img");
+        this.#board_img_moveFrom = document.getElementById("move-from");
+        this.#board_img_moveTo = document.getElementById("move-to");
+        this.#board_img_chosen = document.getElementById("chosen");
         this.#player_turn_node = document.getElementById("player-turn");
         this.setupBoard();
         this.setSize();
@@ -477,6 +495,9 @@ class GameManager {
     static setupBoard() {
         this.#board_node.addEventListener('click', this.boardClicked.bind(this));
         this.#board_img_node.src = ImgManager.getImg('background');
+        this.#board_img_moveFrom.src = ImgManager.getImg('chosen-y');
+        this.#board_img_moveTo.src = ImgManager.getImg('chosen-y');
+        this.#board_img_chosen.src = ImgManager.getImg('chosen-b');
 
         for (const id in this.chessMap)
             this.ChessManagers[id] = new ChessManager(id);
@@ -485,7 +506,28 @@ class GameManager {
         this.#player_turn_node.textContent = `${this.player_color[this.player_turn]}`;
     }
 
+    static choose(x, y) {
+        this.#board_img_chosen.style.display = 'block';
+        this.#board_img_chosen.style.left = `${(x - 1) * 12.5}%`;
+        this.#board_img_chosen.style.top = `${(y - 1) * 12.5}%`;
+    }
+
+    static canMoveTipNode(x, y) {
+        let node = document.createElement('img');
+        node.id = 'canMovePos';
+        node.src = ImgManager.getImg('chosen-r');
+        node.alt = 'canMovePos';
+        node.classList.add('selectBox');
+        node.style.left = `${(x - 1) * 12.5}%`;
+        node.style.top = `${(y - 1) * 12.5}%`;
+        node.style.display = 'block';
+        this.#board_node.appendChild(node);
+    }
+
     static unChooseAll() {
+        document.querySelectorAll('#canMovePos').forEach(node => node.remove());
+        this.#board_img_chosen.style.display = 'none';
+
         for (const id in this.ChessManagers) {
             if (this.ChessManagers[id].status == 'chosen')
                 this.ChessManagers[id].unChoose();
@@ -519,11 +561,16 @@ class GameManager {
         } else if (chess.status == 'chosen') this.unChooseAll();
     }
 
-    static nextRound() {
+    static nextRound(fromx, fromy, tox, toy) {
         if (this.player_turn == 'CC') this.player_turn = 'IC';
         else this.player_turn = 'CC';
         this.#player_turn_node.textContent = `${this.player_color[this.player_turn]}`;
-        // Dialog.success('走棋成功', `现在为${this.player_color[this.player_turn]}走棋`);
+        this.#board_img_moveFrom.style.display = 'block';
+        this.#board_img_moveFrom.style.left = `${(fromx - 1) * 12.5}%`;
+        this.#board_img_moveFrom.style.top = `${(fromy - 1) * 12.5}%`;
+        this.#board_img_moveTo.style.display = 'block';
+        this.#board_img_moveTo.style.left = `${(tox - 1) * 12.5}%`;
+        this.#board_img_moveTo.style.top = `${(toy - 1) * 12.5}%`;
         this.unChooseAll();
     }
 }
@@ -552,6 +599,10 @@ class ChessManager {
      * @readonly #type 棋子种类
      */
     type;
+    /**
+     * 棋子是否移动过
+     */
+    moved = false;
     /**
      * 棋子状态
      * '' 正常
@@ -585,7 +636,6 @@ class ChessManager {
     unChoose() {
         if (GameManager.movingChess == this) GameManager.movingChess = undefined;
         this.status = '';
-        this.#chess_node.classList.remove('chosen');
     }
 
     /**
@@ -594,7 +644,11 @@ class ChessManager {
     choose() {
         GameManager.movingChess = this;
         this.status = 'chosen';
-        this.#chess_node.classList.add('chosen');
+        GameManager.choose(this.posx, this.posy);
+
+        let canMovePosList = MoveManager.canMovePosList(this);
+        console.log(canMovePosList);
+        for (let pos of canMovePosList) GameManager.canMoveTipNode(pos[0], pos[1]);
     }
 
     /**
@@ -635,8 +689,7 @@ class ChessManager {
 
     canMoveTo(x, y) {
         if (![1, 2, 3, 4, 5, 6, 7, 8].includes(x) || ![1, 2, 3, 4, 5, 6, 7, 8].includes(y)) return false;
-        let canMovePosList = MoveManager.canMovePosList(this);
-        for (let pos of canMovePosList) {
+        for (let pos of MoveManager.canMovePosList(this)) {
             if (pos[0] == x && pos[1] == y) return true;
         }
         return false;
@@ -653,8 +706,9 @@ class ChessManager {
                 eatenChess.status = 'eaten';
                 eatenChess.setPos(-1, -1);
             }
+            this.moved = true;
+            GameManager.nextRound(this.posx, this.posy, x, y);
             this.setPos(x, y);
-            GameManager.nextRound();
         }
     }
 }
@@ -675,34 +729,145 @@ class MoveManager {
         else return true;
     }
 
+    static isBlock(posx, posy) {
+        if ((posx == 1 || posx == 8) && posy == 6) return true;
+        else return false;
+    }
+
     static canMovePosList(chess) {
         const posx = chess.posx;
         const posy = chess.posy;
-        const color = chess.id.slice(0, 2);
 
-        if (color == 'CC' && (posx == 1 || posx == 8) && posy == 6) return [];
+        if (chess.id.startsWith('CC') && this.isBlock(posx, posy)) return [];
 
         switch (chess.type) {
             case 'CC-B':
-                return this.moveCCB(posx, posy, color);
+                return this.moveCCB(posx, posy);
+            case 'CC-C':
+                return this.moveCCC(posx, posy);
+            case 'CC-M':
+                return this.moveCCM(posx, posy);
+            case 'CC-P':
+                return this.moveCCP(posx, posy);
+            case 'CC-S':
+                return this.moveCCS(posx, posy);
+            case 'CC-W':
+                return this.moveCCW(posx, posy);
+            case 'CC-X':
+                return this.moveCCX(posx, posy);
+
+            case 'IC-B':
+                return this.moveICB(posx, posy);
+            case 'IC-K':
+                return this.moveICK(posx, posy);
+            case 'IC-N':
+                return this.moveICN(posx, posy);
+            case 'IC-Q':
+                return this.moveICQ(posx, posy);
+            case 'IC-R':
+                return this.moveICR(posx, posy);
             case 'IC-S':
-                return this.moveICS(posx, posy, color);
+                return this.moveICS(posx, posy);
         }
 
         return [];
     }
 
-    static moveCCB(posx, posy, color) {
+    static moveCCB(posx, posy) {
         let moves = [];
 
-        if (this.canEat(posx, posy - 1, color))
+        if (this.canEat(posx, posy - 1, 'CC'))
             moves.push([posx, posy - 1]);
-        if (posy <= 4 && this.canEat(posx - 1, posy, color))
+        if (posy <= 4 && this.canEat(posx - 1, posy, 'CC'))
             moves.push([posx - 1, posy]);
-        if (posy <= 4 && this.canEat(posx + 1, posy, color))
+        if (posy <= 4 && this.canEat(posx + 1, posy, 'CC'))
             moves.push([posx + 1, posy]);
 
-        return moves;
+        return moves.filter((v) => v[0] >= 1 && v[0] <= 8 && v[1] >= 1 && v[1] <= 8);
+    }
+
+    static moveCCC(posx, posy) {
+        let moves = [];
+
+        for (let direction of [[-1, 0], [1, 0], [0, -1], [0, 1]]) {
+            for (let distance = 1; distance <= 8; distance++) {
+                let x = posx + direction[0] * distance;
+                let y = posy + direction[1] * distance;
+                if (x < 1 || x > 8 || y < 1 || y > 8) break;
+                if (this.isBlock(x, y) && this.canEat(x, y, 'CC')) {
+                    moves.push([x, y]);
+                    break;
+                }
+                if (!this.isEmpty(x, y)) {
+                    if (this.canEat(x, y, 'CC')) {
+                        moves.push([x, y]);
+                        break;
+                    } else break;
+                }
+                moves.push([x, y]);
+            }
+        }
+
+        return moves.filter((v) => v[0] >= 1 && v[0] <= 8 && v[1] >= 1 && v[1] <= 8);
+    }
+
+    static moveCCM(posx, posy) {
+        let moves = [];
+
+        if (this.isEmpty(posx, posy - 1) && this.canEat(posx + 1, posy - 2, 'CC'))
+            moves.push([posx + 1, posy - 2]);
+        if (this.isEmpty(posx, posy - 1) && this.canEat(posx - 1, posy - 2, 'CC'))
+            moves.push([posx - 1, posy - 2]);
+        if (this.isEmpty(posx + 1, posy) && this.canEat(posx + 2, posy - 1, 'CC'))
+            moves.push([posx + 2, posy - 1]);
+        if (this.isEmpty(posx - 1, posy) && this.canEat(posx - 2, posy - 1, 'CC'))
+            moves.push([posx - 2, posy - 1]);
+        if (this.isEmpty(posx, posy + 1) && this.canEat(posx + 1, posy + 2, 'CC'))
+            moves.push([posx + 1, posy + 2]);
+        if (this.isEmpty(posx, posy + 1) && this.canEat(posx - 1, posy + 2, 'CC'))
+            moves.push([posx - 1, posy + 2]);
+        if (this.isEmpty(posx + 1, posy) && this.canEat(posx + 2, posy + 1, 'CC'))
+            moves.push([posx + 2, posy + 1]);
+        if (this.isEmpty(posx - 1, posy) && this.canEat(posx - 2, posy + 1, 'CC'))
+            moves.push([posx - 2, posy + 1]);
+
+        return moves.filter((v) => v[0] >= 1 && v[0] <= 8 && v[1] >= 1 && v[1] <= 8);
+    }
+
+    static moveCCP(posx, posy) {
+        let moves = [];
+
+        function onSameLine(x1, y1, x2, y2, x3, y3) {
+            return (x2 - x1) * (y3 - y1) - (y2 - y1) * (x3 - x1) === 0;
+        }
+
+        for (let direction of [[-1, 0], [1, 0], [0, -1], [0, 1]]) {
+            for (let distance = 1; distance <= 8; distance++) {
+                let x = posx + direction[0] * distance;
+                let y = posy + direction[1] * distance;
+                if (x < 1 || x > 8 || y < 1 || y > 8) break;
+                if (this.isBlock(x, y) && this.isEmpty(x, y)) {
+                    moves.push([x, y]);
+                    break;
+                }
+                if (!this.isEmpty(x, y)) break;
+                moves.push([x, y]);
+            }
+        }
+        // for (let targetx = 1; targetx <= 8; targetx++)
+        //     for (let targety = 1; targety <= 8; targety++) {
+        //         let targetChess = GameManager.getChessByPos(targetx, targety);
+        //         if (!targetChess || targetChess.id.slice(0, 2) == 'CC' || !targetChess.moved) continue;
+        //         for (let middlex = Math.min(targetx, posx); middlex <= Math.max(targetx, posx); middlex++)
+        //             for (let middley = Math.min(targety, posy); middley <= Math.max(targety, posy); middley++) {
+        //                 if (middlex == targetx && middley == targety) continue;
+        //                 if (middlex == posx && middley == posy) continue;
+        //                 if (!onSameLine(posx, posy, targetx, targety, middlex, middley)) continue;
+        //                 if (!this.isEmpty(middlex, middley)) moves.push([targetx, targety]);
+        //             }
+        //     }
+
+        return moves.filter((v) => v[0] >= 1 && v[0] <= 8 && v[1] >= 1 && v[1] <= 8);
     }
 
     static moveICS(posx, posy, color) {
@@ -717,7 +882,7 @@ class MoveManager {
         if (posy == 2 && this.isEmpty(posx, posy + 1) && this.isEmpty(posx, posy + 2))
             moves.push([posx, posy + 2]);
 
-        return moves;
+        return moves.filter((v) => v[0] >= 1 && v[0] <= 8 && v[1] >= 1 && v[1] <= 8);
     }
 }
 
