@@ -5,7 +5,7 @@
 	<title>Joker Chess</title>
 	<link rel="stylesheet" type="text/css" href="css/index.min.css" />
 	<link rel="stylesheet" type="text/css" href="css/sweetalert2.min.css" />
-    <meta http-equiv="Content-Security-Policy" content="upgrade-insecure-requests">
+	<meta http-equiv="Content-Security-Policy" content="upgrade-insecure-requests">
 	<script src="../js/global.min.js"></script>
 	<script src="js/sweetalert2.min.js"></script>
 	<script src="js/index.min.js"></script>
@@ -22,9 +22,12 @@
 	</div>
 
 	<div id="game-container" class="flex">
-		<div id="board-container" >
+		<div id="board-container">
 			<div id="board">
 				<img id="board-img" style="z-index: -1;" alt="Chessboard" />
+				<img id="move-from" class="selectBox" style="display: none;" alt="Move from" />
+				<img id="move-to" class="selectBox" style="display: none;" alt="Move to" />
+				<img id="chosen" class="selectBox" style="display: none;" alt="Chosen" />
 			</div>
 		</div>
 		<div id="info-container">

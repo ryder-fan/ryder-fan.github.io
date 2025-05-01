@@ -90,6 +90,13 @@ p {
 	height: 100%;
 }
 
+#board-container .selectBox {
+	position: absolute;
+	width: 12.5%;
+	height: 12.5%;
+	pointer-events: none;
+}
+
 #board-container .chess {
 	position: absolute;
 	width: 12.5%;
