@@ -957,6 +957,17 @@ class MoveManager {
 
         return moves.filter((v) => v[0] >= 1 && v[0] <= 8 && v[1] >= 1 && v[1] <= 8);
     }
+    
+    static moveICN(posx, posy) {
+        let moves = [];
+
+        for (let direction of [[-1, -2], [-2, -1], [-2, 1], [-1, 2], [1, -2], [2, -1], [2, 1], [1, 2]]) {
+            if (this.canEat(posx + direction[0], posy + direction[1], 'IC'))
+                moves.push([posx + direction[0], posy + direction[1]]);
+        }
+
+        return moves.filter((v) => v[0] >= 1 && v[0] <= 8 && v[1] >= 1 && v[1] <= 8);
+    }
 
     static moveICS(posx, posy) {
         let moves = [];
