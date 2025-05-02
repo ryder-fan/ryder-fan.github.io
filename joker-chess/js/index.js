@@ -948,6 +948,28 @@ class MoveManager {
         return moves.filter((v) => v[0] >= 1 && v[0] <= 8 && v[1] >= 1 && v[1] <= 8);
     }
 
+    static moveICB(posx, posy) {
+        let moves = [];
+
+        for (let direction of [[-1, -1], [-1, 1], [1, -1], [1, 1]])
+            for (let distance = 1; distance <= 8; distance++) {
+                let x = posx + direction[0] * distance;
+                let y = posy + direction[1] * distance;
+                if (x < 1 || x > 8 || y < 1 || y > 8) break;
+                if (this.isBlock(x, y) && this.canEat(x, y, 'IC')) {
+                    moves.push([x, y]);
+                    break;
+                }
+                if (!this.isEmpty(x, y)) {
+                    if (this.canEat(x, y, 'IC')) moves.push([x, y]);
+                    break;
+                }
+                moves.push([x, y]);
+            }
+
+        return moves.filter((v) => v[0] >= 1 && v[0] <= 8 && v[1] >= 1 && v[1] <= 8);
+    }
+
     static moveICS(posx, posy) {
         let moves = [];
 
