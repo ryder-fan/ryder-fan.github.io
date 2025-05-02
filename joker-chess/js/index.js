@@ -892,6 +892,17 @@ class MoveManager {
         return moves.filter((v) => v[0] >= 1 && v[0] <= 8 && v[1] >= 1 && v[1] <= 8);
     }
 
+    static moveCCS(posx, posy) {
+        let moves = [];
+
+        if (this.canEat(posx + 1, posy + 1, 'CC')) moves.push([posx + 1, posy + 1]);
+        if (this.canEat(posx - 1, posy + 1, 'CC')) moves.push([posx - 1, posy + 1]);
+        if (this.canEat(posx + 1, posy - 1, 'CC')) moves.push([posx + 1, posy - 1]);
+        if (this.canEat(posx - 1, posy - 1, 'CC')) moves.push([posx - 1, posy - 1]);
+
+        return moves.filter((v) => v[0] >= 1 && v[0] <= 8 && v[1] >= 1 && v[1] <= 8);
+    }
+
     static moveICS(posx, posy) {
         let moves = [];
 
