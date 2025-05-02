@@ -920,7 +920,7 @@ class MoveManager {
                 if (this.isEmpty(posx + direction[0] * (distance - 1), posy + direction[1] * (distance - 1)))
                     if (this.canEat(posx + direction[0] * distance, posy + direction[1] * distance, 'CC'))
                         moves.push([posx + direction[0] * distance, posy + direction[1] * distance]);
-        }
+            }
 
         return moves.filter((v) => v[0] >= 1 && v[0] <= 8 && v[1] >= 1 && v[1] <= 8);
     }
@@ -957,7 +957,7 @@ class MoveManager {
 
         return moves.filter((v) => v[0] >= 1 && v[0] <= 8 && v[1] >= 1 && v[1] <= 8);
     }
-    
+
     static moveICN(posx, posy) {
         let moves = [];
 
@@ -965,6 +965,28 @@ class MoveManager {
             if (this.canEat(posx + direction[0], posy + direction[1], 'IC'))
                 moves.push([posx + direction[0], posy + direction[1]]);
         }
+
+        return moves.filter((v) => v[0] >= 1 && v[0] <= 8 && v[1] >= 1 && v[1] <= 8);
+    }
+
+    static moveICQ(posx, posy) {
+        let moves = [];
+
+        for (let direction of [[1, 0], [-1, 0], [0, 1], [0, -1], [1, 1], [-1, -1], [1, -1], [-1, 1]])
+            for (let distance = 1; distance <= 8; distance++) {
+                let x = posx + direction[0] * distance;
+                let y = posy + direction[1] * distance;
+                if (x < 1 || x > 8 || y < 1 || y > 8) break;
+                if (this.isBlock(x, y)) {
+                    if (this.canEat(x, y, 'IC')) moves.push([x, y]);
+                    break;
+                }
+                if (!this.isEmpty(x, y)) {
+                    if (this.canEat(x, y, 'IC')) moves.push([x, y]);
+                    break;
+                }
+                moves.push([x, y]);
+            }
 
         return moves.filter((v) => v[0] >= 1 && v[0] <= 8 && v[1] >= 1 && v[1] <= 8);
     }
