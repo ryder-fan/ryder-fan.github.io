@@ -854,30 +854,52 @@ class MoveManager {
                 moves.push([x, y]);
             }
         }
-        // for (let targetx = 1; targetx <= 8; targetx++)
-        //     for (let targety = 1; targety <= 8; targety++) {
-        //         let targetChess = GameManager.getChessByPos(targetx, targety);
-        //         if (!targetChess || targetChess.id.slice(0, 2) == 'CC' || !targetChess.moved) continue;
-        //         for (let middlex = Math.min(targetx, posx); middlex <= Math.max(targetx, posx); middlex++)
-        //             for (let middley = Math.min(targety, posy); middley <= Math.max(targety, posy); middley++) {
-        //                 if (middlex == targetx && middley == targety) continue;
-        //                 if (middlex == posx && middley == posy) continue;
-        //                 if (!onSameLine(posx, posy, targetx, targety, middlex, middley)) continue;
-        //                 if (!this.isEmpty(middlex, middley)) moves.push([targetx, targety]);
-        //             }
-        //     }
+        for (let targetx = 1; targetx <= 8; targetx++) for (let targety = 1; targety <= 8; targety++) {
+            if (this.isEmpty(targetx, targety)) continue;
+            if (!this.canEat(targetx, targety, 'CC')) continue;
+            let targetChess = GameManager.getChessByPos(targetx, targety);
+            let minx = Math.min(posx, targetx);
+            let maxx = Math.max(posx, targetx);
+            let miny = Math.min(posy, targety);
+            let maxy = Math.max(posy, targety);
+            let middleCount = 0;
+            if (targetx == posx) {
+                for (let middley = miny + 1; middley < maxy; middley++) {
+                    if ((posx == 1 || posx == 8) && middley == 6) middleCount = Infinity;
+                    if (!this.isEmpty(targetx, middley)) middleCount++;
+                }
+                if (middleCount == 1) moves.push([targetx, targety]);
+            }
+            if (targety == posy) {
+                for (let middlex = minx + 1; middlex < maxx; middlex++) {
+                    if (!this.isEmpty(middlex, targety)) middleCount++;
+                }
+                if (middleCount == 1) moves.push([targetx, targety]);
+            }
+            if (targetx != posx && targety != posy) {
+                if (!targetChess.moved) continue;
+                let k = (maxy - miny) / (maxx - minx);
+                for (let i = 1; i < maxx - minx; i++) {
+                    if (!Number.isInteger(k * i)) continue;
+                    let middlex = minx + i;
+                    let middley = miny + k * i;
+                    if (!this.isEmpty(middlex, middley)) middleCount++;
+                }
+                if (middleCount == 1) moves.push([targetx, targety]);
+            }
+        }
 
         return moves.filter((v) => v[0] >= 1 && v[0] <= 8 && v[1] >= 1 && v[1] <= 8);
     }
 
-    static moveICS(posx, posy, color) {
+    static moveICS(posx, posy) {
         let moves = [];
 
         if (this.isEmpty(posx, posy + 1))
             moves.push([posx, posy + 1]);
-        if (!this.isEmpty(posx - 1, posy + 1) && this.canEat(posx - 1, posy + 1, color))
+        if (!this.isEmpty(posx - 1, posy + 1) && this.canEat(posx - 1, posy + 1, 'IC'))
             moves.push([posx - 1, posy + 1]);
-        if (!this.isEmpty(posx + 1, posy + 1) && this.canEat(posx + 1, posy + 1, color))
+        if (!this.isEmpty(posx + 1, posy + 1) && this.canEat(posx + 1, posy + 1, 'IC'))
             moves.push([posx + 1, posy + 1]);
         if (posy == 2 && this.isEmpty(posx, posy + 1) && this.isEmpty(posx, posy + 2))
             moves.push([posx, posy + 2]);
