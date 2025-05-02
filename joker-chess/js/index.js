@@ -789,7 +789,7 @@ class MoveManager {
     static moveCCC(posx, posy) {
         let moves = [];
 
-        for (let direction of [[-1, 0], [1, 0], [0, -1], [0, 1]]) {
+        for (let direction of [[-1, 0], [1, 0], [0, -1], [0, 1]])
             for (let distance = 1; distance <= 8; distance++) {
                 let x = posx + direction[0] * distance;
                 let y = posy + direction[1] * distance;
@@ -799,14 +799,11 @@ class MoveManager {
                     break;
                 }
                 if (!this.isEmpty(x, y)) {
-                    if (this.canEat(x, y, 'CC')) {
-                        moves.push([x, y]);
-                        break;
-                    } else break;
+                    if (this.canEat(x, y, 'CC')) moves.push([x, y]);
+                    break;
                 }
                 moves.push([x, y]);
             }
-        }
 
         return moves.filter((v) => v[0] >= 1 && v[0] <= 8 && v[1] >= 1 && v[1] <= 8);
     }
@@ -837,11 +834,7 @@ class MoveManager {
     static moveCCP(posx, posy) {
         let moves = [];
 
-        function onSameLine(x1, y1, x2, y2, x3, y3) {
-            return (x2 - x1) * (y3 - y1) - (y2 - y1) * (x3 - x1) === 0;
-        }
-
-        for (let direction of [[-1, 0], [1, 0], [0, -1], [0, 1]]) {
+        for (let direction of [[-1, 0], [1, 0], [0, -1], [0, 1]])
             for (let distance = 1; distance <= 8; distance++) {
                 let x = posx + direction[0] * distance;
                 let y = posy + direction[1] * distance;
@@ -853,7 +846,7 @@ class MoveManager {
                 if (!this.isEmpty(x, y)) break;
                 moves.push([x, y]);
             }
-        }
+
         for (let targetx = 1; targetx <= 8; targetx++) for (let targety = 1; targety <= 8; targety++) {
             if (this.isEmpty(targetx, targety)) continue;
             if (!this.canEat(targetx, targety, 'CC')) continue;
@@ -895,10 +888,10 @@ class MoveManager {
     static moveCCS(posx, posy) {
         let moves = [];
 
-        if (this.canEat(posx + 1, posy + 1, 'CC')) moves.push([posx + 1, posy + 1]);
-        if (this.canEat(posx - 1, posy + 1, 'CC')) moves.push([posx - 1, posy + 1]);
-        if (this.canEat(posx + 1, posy - 1, 'CC')) moves.push([posx + 1, posy - 1]);
-        if (this.canEat(posx - 1, posy - 1, 'CC')) moves.push([posx - 1, posy - 1]);
+        for (let direction of [[-1, -1], [-1, 1], [1, -1], [1, 1]]) {
+            if (this.canEat(posx + direction[0], posy + direction[1], 'CC'))
+                moves.push([posx + direction[0], posy + direction[1]]);
+        }
 
         return moves.filter((v) => v[0] >= 1 && v[0] <= 8 && v[1] >= 1 && v[1] <= 8);
     }
@@ -906,15 +899,10 @@ class MoveManager {
     static moveCCW(posx, posy) {
         let moves = [];
 
-        if (this.canEat(posx + 1, posy, 'CC')) moves.push([posx + 1, posy]);
-        if (this.canEat(posx - 1, posy, 'CC')) moves.push([posx - 1, posy]);
-        if (this.canEat(posx, posy + 1, 'CC')) moves.push([posx, posy + 1]);
-        if (this.canEat(posx, posy - 1, 'CC')) moves.push([posx, posy - 1]);
-
-        if (this.canEat(posx + 1, posy + 1, 'CC')) moves.push([posx + 1, posy + 1]);
-        if (this.canEat(posx - 1, posy + 1, 'CC')) moves.push([posx - 1, posy + 1]);
-        if (this.canEat(posx + 1, posy - 1, 'CC')) moves.push([posx + 1, posy - 1]);
-        if (this.canEat(posx - 1, posy - 1, 'CC')) moves.push([posx - 1, posy - 1]);
+        for (let direction of [[-1, 0], [1, 0], [0, -1], [0, 1], [-1, -1], [-1, 1], [1, -1], [1, 1]]) {
+            if (this.canEat(posx + direction[0], posy + direction[1], 'CC'))
+                moves.push([posx + direction[0], posy + direction[1]]);
+        }
 
         return moves.filter((v) => v[0] >= 1 && v[0] <= 8 && v[1] >= 1 && v[1] <= 8);
     }
@@ -922,28 +910,17 @@ class MoveManager {
     static moveCCX(posx, posy) {
         let moves = [];
 
-        if (this.canEat(posx + 1, posy + 1, 'CC')) moves.push([posx + 1, posy + 1]);
-        if (this.canEat(posx - 1, posy + 1, 'CC')) moves.push([posx - 1, posy + 1]);
-        if (this.canEat(posx + 1, posy - 1, 'CC')) moves.push([posx + 1, posy - 1]);
-        if (this.canEat(posx - 1, posy - 1, 'CC')) moves.push([posx - 1, posy - 1]);
-
-        if (this.canEat(posx + 2, posy + 2, 'CC') && this.isEmpty(posx + 1, posy + 1))
-            moves.push([posx + 2, posy + 2]);
-        if (this.canEat(posx - 2, posy + 2, 'CC') && this.isEmpty(posx - 1, posy + 1))
-            moves.push([posx - 2, posy + 2]);
-        if (this.canEat(posx + 2, posy - 2, 'CC') && this.isEmpty(posx + 1, posy - 1))
-            moves.push([posx + 2, posy - 2]);
-        if (this.canEat(posx - 2, posy - 2, 'CC') && this.isEmpty(posx - 1, posy - 1))
-            moves.push([posx - 2, posy - 2]);
-
-        if (this.canEat(posx + 3, posy + 3, 'CC') && this.isEmpty(posx + 2, posy + 2))
-            moves.push([posx + 3, posy + 3]);
-        if (this.canEat(posx - 3, posy + 3, 'CC') && this.isEmpty(posx - 2, posy + 2))
-            moves.push([posx - 3, posy + 3]);
-        if (this.canEat(posx + 3, posy - 3, 'CC') && this.isEmpty(posx + 2, posy - 2))
-            moves.push([posx + 3, posy - 3]);
-        if (this.canEat(posx - 3, posy - 3, 'CC') && this.isEmpty(posx - 2, posy - 2))
-            moves.push([posx - 3, posy - 3]);
+        for (let direction of [[-1, -1], [-1, 1], [1, -1], [1, 1]])
+            for (let distance = 1; distance <= 3; distance++) {
+                if (distance == 1) {
+                    if (this.canEat(posx + direction[0], posy + direction[1], 'CC'))
+                        moves.push([posx + direction[0], posy + direction[1]]);
+                    continue;
+                }
+                if (this.isEmpty(posx + direction[0] * (distance - 1), posy + direction[1] * (distance - 1)))
+                    if (this.canEat(posx + direction[0] * distance, posy + direction[1] * distance, 'CC'))
+                        moves.push([posx + direction[0] * distance, posy + direction[1] * distance]);
+        }
 
         return moves.filter((v) => v[0] >= 1 && v[0] <= 8 && v[1] >= 1 && v[1] <= 8);
     }
