@@ -919,6 +919,35 @@ class MoveManager {
         return moves.filter((v) => v[0] >= 1 && v[0] <= 8 && v[1] >= 1 && v[1] <= 8);
     }
 
+    static moveCCX(posx, posy) {
+        let moves = [];
+
+        if (this.canEat(posx + 1, posy + 1, 'CC')) moves.push([posx + 1, posy + 1]);
+        if (this.canEat(posx - 1, posy + 1, 'CC')) moves.push([posx - 1, posy + 1]);
+        if (this.canEat(posx + 1, posy - 1, 'CC')) moves.push([posx + 1, posy - 1]);
+        if (this.canEat(posx - 1, posy - 1, 'CC')) moves.push([posx - 1, posy - 1]);
+
+        if (this.canEat(posx + 2, posy + 2, 'CC') && this.isEmpty(posx + 1, posy + 1))
+            moves.push([posx + 2, posy + 2]);
+        if (this.canEat(posx - 2, posy + 2, 'CC') && this.isEmpty(posx - 1, posy + 1))
+            moves.push([posx - 2, posy + 2]);
+        if (this.canEat(posx + 2, posy - 2, 'CC') && this.isEmpty(posx + 1, posy - 1))
+            moves.push([posx + 2, posy - 2]);
+        if (this.canEat(posx - 2, posy - 2, 'CC') && this.isEmpty(posx - 1, posy - 1))
+            moves.push([posx - 2, posy - 2]);
+
+        if (this.canEat(posx + 3, posy + 3, 'CC') && this.isEmpty(posx + 2, posy + 2))
+            moves.push([posx + 3, posy + 3]);
+        if (this.canEat(posx - 3, posy + 3, 'CC') && this.isEmpty(posx - 2, posy + 2))
+            moves.push([posx - 3, posy + 3]);
+        if (this.canEat(posx + 3, posy - 3, 'CC') && this.isEmpty(posx + 2, posy - 2))
+            moves.push([posx + 3, posy - 3]);
+        if (this.canEat(posx - 3, posy - 3, 'CC') && this.isEmpty(posx - 2, posy - 2))
+            moves.push([posx - 3, posy - 3]);
+
+        return moves.filter((v) => v[0] >= 1 && v[0] <= 8 && v[1] >= 1 && v[1] <= 8);
+    }
+
     static moveICS(posx, posy) {
         let moves = [];
 
