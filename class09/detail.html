@@ -4,9 +4,11 @@
 <head>
     <meta charset="utf-8">
     <link rel="shortcut icon" href="data/img/ico.png">
+    <link rel="stylesheet" href="../data/css/loader.min.css">
     <link rel="stylesheet" href="data/css/index.min.css">
     <meta http-equiv="Content-Security-Policy" content="upgrade-insecure-requests">
 	<script src="../data/js/global.min.js"></script>
+	<script src="../data/js/loader.min.js"></script>
     <script src="data/js/mainJS.min.js"></script>
     <script src="data/js/detail.min.js"></script>
     <title>九班传奇</title>
@@ -15,12 +17,15 @@
 <body id="detail">
     <noscript>You need to enable JavaScript to run this app.</noscript>
 
-    <div id="loader" class="loader-container top fixed">
+	<div id="loader-container">
         <br>
-        <div class="loader"></div>
-        <p id="loadingtxt">Loading...</p>
-        <img id="loadingimg" width="1px" height="1px">
-    </div>
+		<p id="loadingtext">Loading...</p>
+		<br>
+		<div id="loadingback">
+			<div id="loadingbar"></div>
+		</div>
+		<img id="loadingimg" width="0px" height="0px">
+	</div>
 
     <div id="title" class="middle flex">
         <img src="data/img/title.png" loading="lazy" alt="九班传奇" style="width: 64px; height: 64px;">
