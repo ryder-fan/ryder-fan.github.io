@@ -2,7 +2,8 @@
 
 ## Projects
 
-[Joker-Chess](https://ryder-fan.github.io/Joker-Chess/)
+[Joker-Chess](https://ryder-fan.github.io/joker-chess/)
+
 [九班传奇](https://ryder-fan.github.io/class09/)
 
 ## Tools
