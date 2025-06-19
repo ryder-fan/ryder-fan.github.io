@@ -3,72 +3,11 @@
 
 <head>
 	<title>Joker Chess</title>
-	<link rel="stylesheet" type="text/css" href="data/css/index.min.css">
-	<link rel="stylesheet" type="text/css" href="../share/css/loader.min.css">
-	<link rel="stylesheet" type="text/css" href="../lib/sweetalert2/sweetalert2.min.css">
-	<meta http-equiv="Content-Security-Policy" content="upgrade-insecure-requests">
 	<script src="../share/js/global.min.js"></script>
-	<script src="../share/js/loader.min.js"></script>
-	<script src="../lib/sweetalert2/sweetalert2.min.js"></script>
-	<script src="data/js/data.min.js"></script>
-	<script src="data/js/rule.min.js"></script>
 </head>
 
 <body>
 	<noscript>Error: Please enable JavaScript to view this page.</noscript>
-
-	<div id="loader-container">
-		<br>
-		<h1>Joker Chess</h1>
-		<br>
-		<p id="loadingtext">Loading...</p>
-		<br>
-		<div id="loadingback">
-			<div id="loadingbar"></div>
-		</div>
-		<img id="loadingimg" width="0px" height="0px">
-	</div>
-
-	<div id="game-container" class="flex">
-		<div id="board-container">
-			<div id="board">
-				<img id="board-img" style="z-index: -1;" alt="Chessboard">
-				<img id="move-from" class="selectBox" style="display: none;" alt="Move from">
-				<img id="move-to" class="selectBox" style="display: none;" alt="Move to">
-				<img id="chosen" class="selectBox" style="display: none;" alt="Chosen">
-			</div>
-		</div>
-		<div id="rule-container">
-			<div id="rule" style="display: flex; flex-direction: column;">
-				<h1 style="font-size: 1.5em;">Joker Chess</h1>
-				<p>
-					<span class="blue">蓝色区域</span>为海岸，
-					<span class="red">红色区域</span>为升变区
-				</p>
-				<p>
-					<span class="red">红方</span>持中国象棋，
-					<span class="black">黑方</span>持国际象棋，
-					<span class="red">红方</span>先手
-				</p>
-				<h1 class="red">红方</h1>
-				<p>兵过海岸后相当于过河，可向左/右行动</p>
-				<p>炮需要炮、炮架、目标三点共线且目标移动过方可吃子</p>
-				<p>但如果为水平或竖直吃子则无需目标移动过</p>
-				<p>象可斜着走1,2或3步，走2或3步时前一格为象眼</p>
-				<p>象和士允许过河，王可横竖或斜向移动一格</p>
-				<p>棋子移动至路障格后，不可再次移动</p>
-				<p>棋子不可越过路障格移动</p>
-				<p>其余规则参照中国象棋规则</p>
-				<h1 class="black">黑方</h1>
-				<p>棋子不可越过路障格移动</p>
-				<p>其余规则参照国际象棋规则</p>
-			</div>
-		</div>
-	</div>
-
-	<div id="footer">
-		<a href="../">About</a>
-	</div>
 </body>
 
 </html>

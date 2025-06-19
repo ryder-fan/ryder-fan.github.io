@@ -3,58 +3,11 @@
 
 <head>
 	<title>Joker Chess</title>
-	<link rel="stylesheet" type="text/css" href="data/css/index.min.css">
-	<link rel="stylesheet" type="text/css" href="../share/css/loader.min.css">
-	<link rel="stylesheet" type="text/css" href="../lib/sweetalert2/sweetalert2.min.css">
-	<meta http-equiv="Content-Security-Policy" content="upgrade-insecure-requests">
 	<script src="../share/js/global.min.js"></script>
-	<script src="../share/js/loader.min.js"></script>
-	<script src="../lib/sweetalert2/sweetalert2.min.js"></script>
-	<script src="data/js/data.min.js"></script>
-	<script src="data/js/index.min.js"></script>
 </head>
 
 <body>
 	<noscript>Error: Please enable JavaScript to view this page.</noscript>
-
-	<div id="loader-container">
-		<br>
-		<h1>Joker Chess</h1>
-		<br>
-		<p id="loadingtext">Loading...</p>
-		<br>
-		<div id="loadingback">
-			<div id="loadingbar"></div>
-		</div>
-		<img id="loadingimg" width="0px" height="0px">
-	</div>
-
-	<div id="game-container" class="flex">
-		<div id="board-container">
-			<div id="board">
-				<img id="board-img" style="z-index: -1;" alt="Chessboard">
-				<img id="move-from" class="selectBox" style="display: none;" alt="Move from">
-				<img id="move-to" class="selectBox" style="display: none;" alt="Move to">
-				<img id="chosen" class="selectBox" style="display: none;" alt="Chosen">
-			</div>
-		</div>
-		<div id="info-container">
-			<div id="info" style="display: flex; flex-direction: column; align-items: center;">
-				<h1>Joker Chess</h1>
-				<p>走棋方：
-					<span id="player-turn"></span>
-				</p>
-				<br>
-				<button id="guide-btn">Joker Chess规则</button>
-				<br>
-				<button id="export-btn">导出当前局面</button>
-			</div>
-		</div>
-	</div>
-
-	<div id="footer">
-		<a href="../">About</a>
-	</div>
 </body>
 
 </html>
