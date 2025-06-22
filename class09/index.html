@@ -2,12 +2,45 @@
 <html lang="zh-cn">
 
 <head>
+    <meta charset="utf-8">
+    <link rel="shortcut icon" href="data/img/ico.png">
+    <link rel="stylesheet" href="data/css/index.min.css">
+    <meta http-equiv="Content-Security-Policy" content="upgrade-insecure-requests">
 	<script src="../share/js/global.min.js"></script>
+    <script src="data/js/mainJS.min.js"></script>
+    <script src="data/js/index.min.js"></script>
+    <link rel="prefetch" href="data/video/4.min.mp4" as="video">
     <title>九班传奇</title>
 </head>
 
-<body>
-	<noscript>Error: Please enable JavaScript to view this page.</noscript>
+<body id="index">
+    <noscript>You need to enable JavaScript to run this app.</noscript>
+
+    <div id="title" class="middle flex horizontal">
+        <img id="titleimg" loading="lazy" alt="九班传奇" style="width: 64px; height: 64px">
+        <h2>湖州五中·九班传奇</h2>
+    </div>
+
+    <br><br>
+
+    <div id="content" class="middle">
+        <div id="hover">
+            <br>
+            <br>
+            <br>
+            <button class="middle" style="width: 10em; height: 6em" id="startbtn">开始</button>
+        </div>
+    </div>
+
+    <div id="contorl" class="flex fixed hide horizontal">
+        <button id="lastbtn">&#60;&#60;</button>
+        <p id="pagetxt"></p>
+        <button id="nextbtn">&#62;&#62;</button>
+    </div>
+
+	<div id="footer">
+		<a href="../">About</a>
+	</div>
 </body>
 
 </html>
